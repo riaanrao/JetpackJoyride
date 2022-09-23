@@ -1,4 +1,5 @@
 var track, player, coin, obstacleStand, obstacleSleep, playerImg, ground, coinGrp, obstacleGroup;
+var score = 0;
 var gameState = "start"
 var PLAY = 1;
 var END = 0;
@@ -27,6 +28,8 @@ function setup() {
 function draw() {
     background(track)
     text(mouseX + "," + mouseY, mouseX, mouseY)
+    textSize(23)
+    text("SCORE: " + score, 100, 50)
     player.scale = 0.25;
     if (gameState === "start") {
         player.velocityX = 0;
@@ -54,6 +57,7 @@ function draw() {
         for (var i = 0; i<coinGrp.length; i = i+1) {
             if (coinGrp.get(i). isTouching(player)) {
                 coinGrp.get(i).destroy();
+                score = score + 1;
             }
         }
         if (obstacleGroup.isTouching(player)) {
@@ -90,7 +94,7 @@ function spawnCoins() {
     }
 }
 function spawnSleepObstacles() {
-    if (frameCount%120===0) {
+    if (frameCount%175===0) {
         var sleepObstacle = createSprite(Math.round(random(450, 1300)), Math.round(random(20, 660)), 50, 200)
         sleepObstacle.addImage(obstacleSleep)
         sleepObstacle.scale = 0.25
@@ -99,7 +103,7 @@ function spawnSleepObstacles() {
     }
 }
 function spawnStandObstacles() {
-    if (frameCount%150===0) {
+    if (frameCount%225===0) {
         var standObstacle = createSprite(Math.round(random(450, 1300)), Math.round(random(20, 660)), 50, 200)
         standObstacle.addImage(obstacleStand)
         standObstacle.scale = 0.25
